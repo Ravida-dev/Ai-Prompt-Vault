@@ -1,19 +1,22 @@
-# React + Vite
+# 🚀 PromptVault - AI Prompt Library for Developers
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+A modern, dark-themed React application designed to organize, search, filter, and copy battle-tested AI prompts for daily software development, design, and writing workflows.
 
-Currently, two official plugins are available:
+## ✨ Key Features
+- 🔍 **Real-time Search:** Filter prompts instantly by title, description, or tags.
+- 🏷️ **Category Filtering:** Filter by Coding, Writing, Design, and Productivity with dynamic color badges.
+- 📋 **One-Click Copy:** Built-in clipboard integration for seamless prompt copying.
+- 🎨 **Modern Dark UI:** Responsive SaaS-style dashboard built with Tailwind CSS.
+- ⚡ **Performance:** Fast client-side state management using React Hooks (`useState`).
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🛠️ Tech Stack
+- **Framework:** React.js (Vite)
+- **Styling:** Tailwind CSS
+- **Deployment:** Vercel
 
-## React Compiler
-
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
-
-Note: This will impact Vite dev & build performances.
-You can also try [the experimental native React Compiler support in plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md#rust-react-compiler) by using `compiler: true` in the plugin options instead of using the Babel plugin.
-
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+## 🚀 Local Setup
+```bash
+git clone [https://github.com/Ravida-dev/ai-prompt-vault.git](https://github.com/Ravida-dev/ai-prompt-vault.git)
+cd ai-prompt-vault
+npm install
+npm run dev

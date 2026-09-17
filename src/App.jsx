@@ -1,74 +1,53 @@
-import React, { useState } from "react";
-import RestaurantMenu from "./Resturant"; 
-import StudentAttendance from "./StudentAttandence"; 
+import React, { useState } from 'react';
+import Navbar from './components/Navbar';
+import Hero from './components/Hero';
+import CategoryFilter from './components/CategoryFilter';
+import PromptCard from './components/PromptCard';
+import { promptsData } from './data/prompts';
 
 export default function App() {
- 
-  const [activeScreen, setActiveScreen] = useState("menu"); 
+  const [searchQuery, setSearchQuery] = useState('');
+  const [activeCategory, setActiveCategory] = useState('All');
+  const [copiedId, setCopiedId] = useState(null);
+
+  const categories = ['All', 'Coding', 'Writing', 'Design', 'Productivity'];
+
+  const handleCopy = (id, text) => {
+    navigator.clipboard.writeText(text);
+    setCopiedId(id);
+    setTimeout(() => setCopiedId(null), 2000);
+  };
+
+  const filteredPrompts = promptsData.filter((item) => {
+    const matchesCategory = activeCategory === 'All' || item.category === activeCategory;
+    const matchesSearch =
+      item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      item.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      item.tags.some((tag) => tag.toLowerCase().includes(searchQuery.toLowerCase()));
+
+    return matchesCategory && matchesSearch;
+  });
 
   return (
-    <div style={{ 
-      backgroundColor: "#ffe4e1", 
-      minHeight: "100vh", 
-      padding: "30px",
-      fontFamily: "'Comic Sans MS', 'Chalkboard SE', cursive, sans-serif", // Cute girly font
-      color: "#c2185b" 
-    }}>
-      
-      <div style={{ display: "flex", justifyContent: "center", gap: "20px", marginBottom: "30px" }}>
-        <button 
-          onClick={() => setActiveScreen("menu")}
-          style={{
-            backgroundColor: activeScreen === "menu" ? "#e91e63" : "#f48fb1",
-            color: "white",
-            padding: "12px 24px",
-            border: "none",
-            borderRadius: "30px",
-            cursor: "pointer",
-            fontSize: "16px",
-            fontWeight: "bold",
-            boxShadow: "2px 4px 8px rgba(233, 30, 99, 0.3)",
-            transition: "0.3s"
-          }}
-        >
-          🌸 Restaurant Menu
-        </button>
+    <div className="min-h-screen bg-slate-950 text-slate-100 font-sans antialiased pb-12">
+      <Navbar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+      <Hero />
+      <CategoryFilter
+        categories={categories}
+        activeCategory={activeCategory}
+        setActiveCategory={setActiveCategory}
+      />
 
-        <button 
-          onClick={() => setActiveScreen("attendance")}
-          style={{
-            backgroundColor: activeScreen === "attendance" ? "#e91e63" : "#f48fb1",
-            color: "white",
-            padding: "12px 24px",
-            border: "none",
-            borderRadius: "30px",
-            cursor: "pointer",
-            fontSize: "16px",
-            fontWeight: "bold",
-            boxShadow: "2px 4px 8px rgba(233, 30, 99, 0.3)",
-            transition: "0.3s"
-          }}
-        >
-          🎀 Student Attendance
-        </button>
+      <div className="max-w-6xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {filteredPrompts.map((item) => (
+          <PromptCard
+            key={item.id}
+            item={item}
+            copiedId={copiedId}
+            handleCopy={handleCopy}
+          />
+        ))}
       </div>
-
-   
-      <div style={{
-        backgroundColor: "white",
-        padding: "30px",
-        borderRadius: "20px",
-        maxWidth: "700px",
-        margin: "0 auto",
-        boxShadow: "0 10px 20px rgba(233, 30, 99, 0.15)",
-        border: "2px dashed #f48fb1"
-      }}>
-        
-        
-        {activeScreen === "menu" ? <RestaurantMenu /> : <StudentAttendance />}
-        
-      </div>
-
     </div>
   );
 }
